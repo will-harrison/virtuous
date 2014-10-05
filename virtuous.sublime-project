@@ -1,0 +1,33 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "."
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/home/kristi/projects/tester"
+		}
+	],
+	"ternjs":
+	{
+		"exclude":
+		[
+			".meteor/**",
+			"node_modules/**"
+		],
+		"libs":
+		[
+			"browser",
+			"underscore",
+			"jquery"
+		],
+		"plugins":
+		{
+			"meteor":
+			{
+			}
+		}
+	}
+}

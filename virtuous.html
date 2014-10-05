@@ -1,0 +1,75 @@
+<head>
+  <title>virtuous</title>
+</head>
+
+<body>
+  {{> container}}
+</body>
+
+<!-- <template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+ -->
+<template name="container">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+      <!-- {{#if virtues}} -->
+        {{> virtues}}
+      <!-- {{/if}} -->
+
+      {{#if settings}}
+        {{> settings}}
+      {{/if}}
+
+      {{#if about}}
+        {{> about}}
+      {{/if}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        {{> footer}}
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="virtues">
+      <!-- {{#each virtues}} -->
+      <h2><div class="virtue" id="virtue">{{virtue.virtue}}</div></h2>
+      <h3>{{virtue.description}}</h3>
+      {{> betterWorse}}
+      <!-- {{/each}} -->
+      {{> undo}}
+</template>
+
+<template name="betterWorse">
+  <div class="vote">
+    <input type="button" class="better button" value="Better">
+    <input type="button" class="worse button dark" value="Worse">
+  </div>
+</template>
+
+<template name="undo">
+  <span id="undo"><br>«undo</span>
+</template>
+
+<template name="settings">
+  <a href=""></a>
+  <p>This is where the settings go</p>
+</template>
+
+<template name="about">
+<p>This is where the about goes</p>
+</template>
+
+<template name="footer">
+  <br>
+  <span id="About">About | </span>
+  <span id="Settings">Settings | </span>
+  <span id="Log">Log In</span>
+
+</template>

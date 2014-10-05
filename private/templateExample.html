@@ -1,0 +1,30 @@
+<template name="post_edit">
+  {{#with post}}
+    <form>
+      <div>
+        <label>Title</label>
+        <input id="title" type="text" value="{{headline}}" />
+      </div>
+      <div>
+        <label>URL</label>
+        <input id="url" type="text" value="{{url}}" />
+      </div>
+      <div>
+        <label>Body</label>
+        <textarea id="body" value="" class="input-xlarge">{{body}}</textarea>
+      </div>
+      <div>
+        <label>Category</label>
+        {{#each categories}}
+          <label class="checkbox inline">
+            <input id="category_{{_id}}" type="checkbox" value="{{_id}}" name="category" {{hasCategory}} /> {{name}}
+          </label>
+        {{/each}}
+      </div>
+      <div class="form-actions">
+        <a class="delete-link" href="/posts/deleted">Delete Post</a>
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  {{/with}}
+</template>

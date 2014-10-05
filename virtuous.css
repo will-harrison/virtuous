@@ -1,0 +1,44 @@
+/* CSS declarations go here */
+@import url(http://fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+body {
+  background-color: #333;
+  text-align: center;
+  font-family: 'Inconsolata';
+  color: #fff;
+}
+ 
+
+/*
+@font-face {
+  font-family: 'Inconsolata' ;
+  src: 
+    url("fonts/Inconsolata.otf");
+}*/
+
+.button {
+  display: inline-block;
+  border: 2px solid #333;
+  color: #333;
+  padding: 1em 1.25em;
+  text-align: center;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-decoration: none;
+  cursor: pointer;
+  width: 140px;
+  font-size: .8em;
+  line-height: 1.3em;
+}
+
+.button a:hover {
+  text-decoration: none;
+}
+
+.button.dark {
+  background: #333;
+  border: 2px solid #fff;
+  color: #fff;
+  text-shadow: none;
+}

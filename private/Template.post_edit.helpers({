@@ -1,0 +1,46 @@
+Template.post_edit.helpers({
+  post: function() {
+    return Posts.findOne(Session.get('selectedPostId'));
+  },
+  categories: function() {
+    return Categories.find().fetch();
+  },
+  hasCategory: function() {
+    var post = Posts.findOne(Session.get('selectedPostId'));
+    return _.contains(post.categories, this.name) ? 'checked' : '';
+  }
+});
+
+Template.post_edit.events = {
+  'click input[type=submit]': function(e) {
+    e.preventDefault();
+
+    var selectedPostId = Session.get('selectedPostId');
+    var post = Posts.findOne(selectedPostId);
+
+    var categories = [];
+    $('input[name=category]:checked').each(function() {
+      categories.push($(this).val());
+    });
+
+    var properties = {
+      title:         $('#title').val(),
+      url:           $('#url').val()
+      body:          $('#body').val(),
+      categories:    categories,
+    };
+
+    Posts.update(selectedPostId, {$set: properties}, function(error) {
+      if (error) {
+        alert(error.reason);
+      }
+    });
+  },
+  'click .delete-link': function(e) {
+    e.preventDefault();
+    if(confirm("Are you sure?")) {
+      var selectedPostId = Session.get('selectedPostId');
+      Posts.remove(selectedPostId);
+    }
+  }
+};
