@@ -39,8 +39,12 @@
 
 <template name="virtues">
       <!-- {{#each virtues}} -->
-      <h2><div class="virtue" id="virtue">{{virtue.virtue}}</div></h2>
-      <h3>{{virtue.description}}</h3>
+      <div class="virtue" id="virtue">
+        <h2>{{virtue.virtue}}</h2>
+      </div>
+      <div class="virtue" id="virtue-description">
+        <h3>{{virtue.description}}</h3>
+      </div>
       {{> betterWorse}}
       <!-- {{/each}} -->
       {{> undo}}

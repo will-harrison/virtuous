@@ -3,10 +3,12 @@ Meteor.startup(function () {
     return Virtues.find();
   });
 
-  
+
   // seed Virtues collection with Ben's 13 virtues
+  // TODO: redo this. Inserted into 1 document instead of multiple
   if (Virtues.find().count() == 0 ) {
     // ../lib/virtueList
+    // should call seedVirtues
     _.each(virtueList, function(virtue, key, list){
       console.log(virtue);
       Virtues.insert(virtue, function (err, result) {
@@ -26,9 +28,9 @@ Meteor.startup(function () {
     },
     seedVirtuous: function () {
       _.each(list, function(value, key, list){
-      
+
         // body
-      
+
       });
     }
   });

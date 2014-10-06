@@ -1,72 +1,60 @@
 Meteor.startup(function() {
   Meteor.subscribe('virtues');
-
 });
-Session.set("virtueCounter", getVirtueCount());
-var virtues = getVirtues();
 
-console.log("virtues: "+virtues[Session.get("virtueCounter")].virtue);
-console.log("counter: "+Session.get("virtueCounter"));
-
-// document.write(virtues[Session.get("virtueCounter")-1].virtue);
-// document.write(virtues[Session.get("virtueCounter")-1].description);
-
-function getVirtues() {
-  return Virtues.find().fetch();
+function push(entry) {
+  Virtuous.insert(entry);
+  console.log("Added entry '" + entry.entry + "' for virtueID: " + entry.virtue);
 }
 
-function getVirtueCount () {
-  return Virtues.find().count();
-}
+function setVirtue (reverse) {
+  var currentVirtue = Session.get("currentVirtue");
 
-
-function getNextVirtue () {
-  var virtues = getVirtues();
-
-  for (prop in virtues) {
-      if (!virtues.hasOwnProperty(prop)) {
-          //The current property is not a direct property of p
-          continue;
-      }
-      console.log(prop);
+  if (currentVirtue === undefined) {
+    Session.set("currentVirtue", 0);
   }
-}
+  else if (currentVirtue < Virtues.find().count() - 1) {
+    Session.set("currentVirtue", currentVirtue + 1);
+  }
+  else if (reverse) {
+    Session.set("currentVirtue", currentVirtue - 1);
+  }
+  else {
+    // should go to graph, not restart
+    Session.set("currentVirtue", 0);
+  }
+};
 
-// function getNextVirtue() {
-//   var result = Virtues.findOne({}, {skip: Session.get("currentVirtueID")});
-//   Session.set("currentVirtueName", result.virtue);
-//   Session.set("currentVirtueID", Session.get("currentVirtueID") + 1);
-//   return result;
-// }
+function getCurrentVirtue() {
+  var currentVirtue = Session.get("currentVirtue") || 0;
+  var virtues = Virtues.find().fetch();
+  return virtues[currentVirtue];
 
-function push(vote) {
-  console.log("Added vote " + vote.vote + " for virtueID: " + vote.virtue);
 }
 
 Template.virtues.virtue = function () {
-  return getNextVirtue();
+  return getCurrentVirtue();
 };
 
 Template.betterWorse.events({
   'click input.better': function (event) {
-    var vote = {
-        virtue: document.getElementById('virtue').innerHTML,
-        vote: "better",
-        value: 1
+    var entry = {
+        virtue: getCurrentVirtue().virtue,
+        entry: "better",
+        value: 1,
+        timestamp: new Date()
       };
-    console.log(vote);
-    getNextVirtue();
-    push(vote);
+    push(entry);
+    setVirtue();
   },
   'click input.worse': function (event) {
-    var vote = {
-      virtue: document.getElementById('virtue').innerHTML,
-      vote: "worse",
-      value: -1
+    var entry = {
+      virtue: getCurrentVirtue().virtue,
+      entry: "worse",
+      value: -1,
+      timestamp: new Date()
     };
-    console.log(vote);
-    getNextVirtue();
-    push(vote);
-
+    push(entry);
+    setVirtue();
   }
 });
