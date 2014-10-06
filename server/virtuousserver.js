@@ -9,7 +9,7 @@ Meteor.startup(function () {
   if (Virtues.find().count() == 0 ) {
     // ../lib/virtueList
     // should call seedVirtues
-    _.each(virtueList, function(virtue, key, list){
+    _.each(virtueList.virtues, function(virtue, key, list){
       console.log(virtue);
       Virtues.insert(virtue, function (err, result) {
         if (err) {return err};
